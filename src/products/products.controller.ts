@@ -15,25 +15,25 @@ export class ProductsController {
    */
 
   // @Post()
-  @MessagePattern({ cmd: 'create' })
+  @MessagePattern({ cmd: 'createProduct' })
   create(@Payload() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);
   }
 
   // @Get()
-  @MessagePattern({ cmd: 'find_all' })
+  @MessagePattern({ cmd: 'findAllProducts' })
   findAll(@Payload() paginationDto: PaginationDto) {
     return this.productsService.findAll(paginationDto);
   }
 
   // @Get(':id')
-  @MessagePattern({ cmd: 'find_one' })
+  @MessagePattern({ cmd: 'findOneProduct' })
   findOne(@Payload('id', ParseIntPipe) id: string) {
     return this.productsService.findOne(+id);
   }
 
   // @Patch(':id')
-  @MessagePattern({ cmd: 'update' })
+  @MessagePattern({ cmd: 'updateProduct' })
   update(
     // @Param('id', ParseIntPipe) id: number,
     // @Body() updateProductDto: UpdateProductDto,
@@ -43,8 +43,13 @@ export class ProductsController {
   }
 
   // @Delete(':id')
-  @MessagePattern({ cmd: 'delete' })
+  @MessagePattern({ cmd: 'deleteProduct' })
   remove(@Payload('id') id: string) {
     return this.productsService.remove(+id);
+  }
+
+  @MessagePattern({ cmd: 'validateProducts' })
+  validateProducts(@Payload() ids: number[]) {
+    return this.productsService.validateProducts(ids);
   }
 }
